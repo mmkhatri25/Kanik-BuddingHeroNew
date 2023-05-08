@@ -9262,6 +9262,7 @@ namespace Ui
 			this.panelTrinketRecycle.tokens.SetCurrency(CurrencyType.TOKEN, this.sim.GetTokens().GetString(), true, GameMode.STANDARD, true);
 			this.panelTrinketRecycle.scraps.SetCurrency(CurrencyType.SCRAP, this.sim.GetScraps().GetString(), true, GameMode.STANDARD, true);
 		}
+        DateTime currentDatetime;
 
 		private void UpdateShopScreen()
 		{
@@ -9272,6 +9273,7 @@ namespace Ui
 			float num = -40f;
 			if (!isLookingAtOffers)
 			{
+                print("shop 111");
 				panelShop.parentFlashOffers.gameObject.SetActive(false);
 				panelShop.parentSocialOffers.gameObject.SetActive(false);
 				panelShop.parentSpecialOffer.gameObject.SetActive(false);
@@ -9291,16 +9293,22 @@ namespace Ui
 					if (i == 0)
 					{
 						int numFreeLootpacks = this.sim.GetNumFreeLootpacks();
-						double timeForNextFreeLootpack = this.sim.GetTimeForNextFreeLootpack();
+						double timeForNextFreeLootpack = this.sim.GetTimeForNextFreeLootpack(currentDatetime);
 						string text = (numFreeLootpacks <= 0) ? string.Empty : LM.Get("UI_SHOP_CHEST_0");
 						string text2 = string.Empty;
+                        print("timeForNextFreeLootpack - "+timeForNextFreeLootpack);
 						if (timeForNextFreeLootpack >= 0.0)
 						{
 							text2 = GameMath.GetTimeString(timeForNextFreeLootpack);
+                            print("inside timeForNextFreeLootpack - "+timeForNextFreeLootpack);
+                            currentDatetime = System.DateTime.Now;
+                            
 						}
 						else if (timeForNextFreeLootpack == -2.0)
 						{
 							text2 = LM.Get("UI_SHOP_CHEST_0_WAIT");
+                        print("out side timeForNextFreeLootpack - "+timeForNextFreeLootpack);
+                            
 						}
 						merchantItem.textPrice.text = text + ((text.Length <= 0 || text2.Length <= 0) ? string.Empty : "\n") + text2;
 					}
@@ -9455,7 +9463,7 @@ namespace Ui
 				{
 					panelShop.parentMines.gameObject.SetActive(false);
 				}
-				panelShop.parentGemPacks.gameObject.SetActive(true);
+				panelShop.parentGemPacks.gameObject.SetActive(false);
 				panelShop.parentGemPacks.anchoredPosition = new Vector2(0f, num);
 				num -= panelShop.parentGemPacks.sizeDelta.y;
 				if (this.sim.CanWatchVideoForFreeCurrency(CurrencyType.GEM))
@@ -9479,6 +9487,8 @@ namespace Ui
 			}
 			else
 			{
+                print("shop 222");
+            
 				if (panelShop.timeWasReady != TrustedTime.IsReady() || panelShop.thereWasTutorial != TutorialManager.IsThereTutorialCurrently())
 				{
 					UiManager.stateJustChanged = true;
@@ -10113,10 +10123,14 @@ namespace Ui
 				if (TrustedTime.IsReady())
 				{
 					panel.buttonUpgradeAnim.textDown.text = GameMath.GetTimeString(this.sim.GetTimeToCollectMine(mine));
+                    print("here is showing string 111");
 				}
 				else
 				{
 					panel.buttonUpgradeAnim.textDown.text = LM.Get("UI_SHOP_CHEST_0_WAIT");
+                    
+                    print("here is showing string  222");
+                    
 				}
 			}
 			if (panel.imageItem.sprite != sprite)

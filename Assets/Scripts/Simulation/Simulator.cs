@@ -4870,7 +4870,7 @@ namespace Simulation
 			return 0;
 		}
 
-		public double GetTimeForNextFreeLootpack()
+		public double GetTimeForNextFreeLootpack(DateTime lastclaim)
 		{
 			if (this.GetNumFreeLootpacks() >= 1)
 			{
@@ -4878,7 +4878,7 @@ namespace Simulation
 			}
 			if (TrustedTime.IsReady())
 			{
-				double num = GameMath.DeltaTimeInSecs(TrustedTime.Get(), this.lootpackFreeLastOpenTimeServer);
+                double num = GameMath.DeltaTimeInSecs(TrustedTime.Get(), lastclaim); //this.lootpackFreeLastOpenTimeServer);
 				double num2 = (double)this.GetFreeLootpackPeriod();
 				return num2 - num % num2;
 			}

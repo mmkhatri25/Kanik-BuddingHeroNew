@@ -154,6 +154,7 @@ namespace Ui
 
 		public void InitStrings()
 		{
+            tabbarParent.gameObject.SetActive(false);
 			this.buttonTabVault.text.text = LM.Get("UI_SHOP_VAULT");
 			this.buttonTabOffers.text.text = LM.Get("UI_SHOP_OFFERS");
 			this.textTitle0.text = LM.Get("UI_PACKS_SECTION_TITLE");
@@ -162,7 +163,7 @@ namespace Ui
 			this.riftPackTitle.text = LM.Get("UI_GATES_OFFERS_TITLE");
 			this.adventureOffersTitle.text = LM.Get("UI_ADVENTURE_OFFERS_TITLE");
 			this.socialRewardsSectionTitle.text = LM.Get("SOCIAL_REWARS_SECTION_TITLE");
-			this.shopLootPacks[0].textTitle.text = LM.Get("UI_SHOP_CHEST_0");
+            this.shopLootPacks[0].textTitle.text = "FREE";//LM.Get("UI_SHOP_CHEST_0");
 			this.shopLootPacks[1].textTitle.text = LM.Get("UI_SHOP_CHEST_1");
 			this.shopLootPacks[2].textTitle.text = LM.Get("UI_SHOP_CHEST_2");
 			this.shopCharmPacks[0].textTitle.text = LM.Get("CHARM_PACK");
@@ -187,6 +188,7 @@ namespace Ui
 			this.halloweenHeader.text = LM.Get("UI_HALLOWEEN");
 			this.secondAnniversaryOfferTitle.text = "SECOND_ANNIVERSARY_SHOP_AD_TITLE".Loc();
 			this.secondAnniversaryOfferDesc.text = "SECOND_ANNIVERSARY_SHOP_AD_DESC".Loc();
+            
 		}
 
 		public void HideTabbar()

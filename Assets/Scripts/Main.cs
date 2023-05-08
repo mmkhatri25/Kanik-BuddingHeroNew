@@ -679,7 +679,7 @@ public class Main : MonoBehaviour
 				this.AddEventNotificationIfNecessary(list, "secondAnniversary", "currencyBundle2", "NOTIF_SHOP_OFFER");
 			}
 		}
-		StoreManager.SetNotifications(this.sim.GetTimeForNextFreeLootpack(), this.sim.GetTimeForNextShopOffer(), minesDuration, num, flashOfferDuration, secondsTillDustRestBonusFull, list);
+		StoreManager.SetNotifications(this.sim.GetTimeForNextFreeLootpack(DateTime.Now), this.sim.GetTimeForNextShopOffer(), minesDuration, num, flashOfferDuration, secondsTillDustRestBonusFull, list);
 	}
 
 	private void AddEventNotificationIfNecessary(List<StoreManager.NotificationInfo> notifications, string eventId, string internalEventId, string locKey)
