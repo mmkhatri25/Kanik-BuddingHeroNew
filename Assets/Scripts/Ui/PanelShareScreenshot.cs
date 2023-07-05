@@ -24,12 +24,12 @@ namespace Ui
 
 		public override void Init()
 		{
-			this.shareButton.onClick = new GameButton.VoidFunc(this.ShareScreenshot);
+			//this.shareButton.onClick = new GameButton.VoidFunc(this.ShareScreenshot);
 		}
 
 		public void InitStrings()
 		{
-			this.shareButton.text.text = LM.Get("UI_SHARE");
+			//this.shareButton.text.text = LM.Get("UI_SHARE");
 		}
 
 		public void OnClosed()
@@ -305,8 +305,8 @@ namespace Ui
 		[SerializeField]
 		private RectTransform screenshotParent;
 
-		[SerializeField]
-		private GameButton shareButton;
+		//[SerializeField]
+		//private GameButton shareButton;
 
 		[SerializeField]
 		private Image background;

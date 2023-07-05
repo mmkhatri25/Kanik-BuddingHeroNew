@@ -1114,20 +1114,20 @@ namespace Simulation
 			}
 			this.christmasCandyCappedVideoNotificationSeen = saveData.christmasCandyCappedVideoNotificationSeen;
 			this.christmasFreeCandyNotificationSeen = saveData.christmasFreeCandyNotificationSeen;
-			if (saveData.earnedBadges != null)
-			{
-				foreach (int id38 in saveData.earnedBadges)
-				{
-					Badges.GetBadgeWithId((BadgeId)id38).LoadState(true, true);
-				}
-			}
-			if (saveData.notificationDismissedBadges != null)
-			{
-				foreach (int id39 in saveData.notificationDismissedBadges)
-				{
-					Badges.GetBadgeWithId((BadgeId)id39).DimissNotification();
-				}
-			}
+			//if (saveData.earnedBadges != null)
+			//{
+			//	foreach (int id38 in saveData.earnedBadges)
+			//	{
+			//		Badges.GetBadgeWithId((BadgeId)id38).LoadState(true, true);
+			//	}
+			//}
+			//if (saveData.notificationDismissedBadges != null)
+			//{
+			//	foreach (int id39 in saveData.notificationDismissedBadges)
+			//	{
+			//		Badges.GetBadgeWithId((BadgeId)id39).DimissNotification();
+			//	}
+			//}
 			this.christmasEventForbidden = saveData.christmasEventForbidden;
 			this.prestigedDuringSecondAnniversaryEvent = saveData.prestigedDuringSecondAnniversaryEvent;
 			this.isCataclysmSurviver = saveData.cataclysmSurviver;
@@ -4870,7 +4870,7 @@ namespace Simulation
 			return 0;
 		}
 
-		public double GetTimeForNextFreeLootpack(DateTime lastclaim)
+		public double GetTimeForNextFreeLootpack()
 		{
 			if (this.GetNumFreeLootpacks() >= 1)
 			{
@@ -4878,7 +4878,7 @@ namespace Simulation
 			}
 			if (TrustedTime.IsReady())
 			{
-                double num = GameMath.DeltaTimeInSecs(TrustedTime.Get(), lastclaim); //this.lootpackFreeLastOpenTimeServer);
+				double num = GameMath.DeltaTimeInSecs(TrustedTime.Get(), this.lootpackFreeLastOpenTimeServer);
 				double num2 = (double)this.GetFreeLootpackPeriod();
 				return num2 - num % num2;
 			}

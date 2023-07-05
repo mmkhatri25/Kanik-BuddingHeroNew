@@ -216,23 +216,23 @@ public class RewardedAdManager : MonoBehaviour
 	private void Update()
 	{
 		this.adBridge.Update();
-		if (!this.IsWatchingAnyAd())
-		{
-			float num = Time.time - this.lastAddLoadTime;
-			if (!this.isAdLoaded && num > 15f)
-			{
-				if (this.IsRewardedVideoReady())
-				{
-					this.lastAddLoadTime = Time.time;
-					this.isAdLoaded = true;
-				}
-				else
-				{
-					this.lastAddLoadTime = Time.time;
-					this.LoadRewardedVideo();
-				}
-			}
-		}
+		//if (!this.IsWatchingAnyAd())
+		//{
+		//	float num = Time.time - this.lastAddLoadTime;
+		//	if (!this.isAdLoaded && num > 15f)
+		//	{
+		//		if (this.IsRewardedVideoReady())
+		//		{
+		//			this.lastAddLoadTime = Time.time;
+		//			this.isAdLoaded = true;
+		//		}
+		//		else
+		//		{
+		//			this.lastAddLoadTime = Time.time;
+		//			this.LoadRewardedVideo();
+		//		}
+		//	}
+		//}
 	}
 
 	public bool IsRewardedVideoAvailable()

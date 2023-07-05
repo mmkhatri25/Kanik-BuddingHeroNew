@@ -19,7 +19,7 @@ namespace Ui
 		{
 			this.IapIndex = iapIndex;
 			this.buyButton.textDown.text = LM.Get("UI_BUY");
-			this.buyButton.textUp.text = IapManager.productPriceStringsLocal[iapIndex];
+			//this.buyButton.textUp.text = IapManager.productPriceStringsLocal[iapIndex];
 			this.menuShowCurrency.SetCurrency(CurrencyType.CANDY, GameMath.GetDoubleString(12500.0), false, GameMode.STANDARD, true);
 			this.candyTreatImage.sprite = this.candyTreatsImages[iapIndex - IapIds.CANDY_PACK_01 + 1];
 			this.buyButton.gameButton.interactable = true;

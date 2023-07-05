@@ -85,6 +85,8 @@ namespace Ui
 		{
 			get
 			{
+
+				Debug.Log("this current state :" + this._state);
 				return this._state;
 			}
 			set
@@ -184,7 +186,7 @@ namespace Ui
 				}
 				case ShopLootpackOpening.State.GearOpen:
 				{
-					//UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiLootpackItem[this.lootGears[this.gearIndex].level], 1f));
+					UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiLootpackItem[0], 1f));
 					this.gearIdForShineEffect = this.UpdateHeroGears(true);
 					this.updatedHeroGears = false;
 					Color color = new Color(1f, 1f, 1f, 0f);
@@ -391,13 +393,18 @@ namespace Ui
 
 		public void SetLootpack(ShopPack shopPack, int amountLootpacksOpened, bool allowSkipButton = false)
 		{
+
+			if(amountLootpacksOpened == 0)
+				PlayerPrefs.SetString("sysString", System.DateTime.Now.ToBinary().ToString());
+
+
 			this.selectedShopPack = shopPack;
 			this.chestSpine.SetSkin(shopPack, true);
 			this.chestSpine.rectTransform.SetAnchorPosY((float)((!(shopPack is ShopPackTrinket)) ? 180 : 128));
 			this.chestSpineSummary.SetSkin(shopPack, false);
 			this.chestSpine.Spawn();
 			this.chestSpine.transform.localScale = new Vector3(0f, 0f, 0f);
-			this.skipAnimationButton.gameObject.SetActive(allowSkipButton && amountLootpacksOpened >= 3);
+			this.skipAnimationButton.gameObject.SetActive(true);
 			this.canvasGroup.alpha = 0f;
 			this.finished = false;
 			this.resultsReceived = false;
@@ -616,6 +623,7 @@ namespace Ui
 				Vector3 chestScale = this.GetChestScale(this.selectedShopPack);
 				if (this.animating)
 				{
+							this.animating = false;
 					this.timer += dt;
 					if (this.timer > this.period || this.clicked)
 					{

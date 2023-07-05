@@ -26,12 +26,14 @@ namespace Ui
 			{
 				this.InitStats();
 			}
-			this.badges = new List<BadgeWidget>();
-			this.badgeWidgetSize = this.badgeWidgetPrefab.rectTransform.sizeDelta;
-			this.gapBetweenBadges = (this.badgesParent.sizeDelta.x - 45f - this.badgeWidgetSize.x * 4f) / 3f + this.badgeWidgetSize.x;
-			this.badgeDescriptionParentHeight = this.badgeDescriptionParent.sizeDelta.y + 20f;
-			this.badgesParentHeight = 45f + this.badgeWidgetSize.y;
-			this.badgeDescriptionParent.SetScaleY(0f);
+            	this.badges = new List<BadgeWidget>();
+            //this.badgeWidgetSize = this.badgeWidgetPrefab.rectTransform.sizeDelta;
+            //this.gapBetweenBadges = (this.badgesParent.sizeDelta.x - 45f - this.badgeWidgetSize.x * 4f) / 3f + this.badgeWidgetSize.x;
+            //this.badgeDescriptionParentHeight = this.badgeDescriptionParent.sizeDelta.y + 0.1f;
+            //	this.badgesParentHeight = 2f + this.badgeWidgetSize.y;
+            //this.badgeDescriptionParent.SetScaleY(0f);
+            parentAchievements.position = new Vector2(0,200f);
+            
 		}
 
 		public void InitStrings()
@@ -161,8 +163,10 @@ namespace Ui
 
 		private void UpdateAchievementsTab(Simulator sim, UiManager uiManager)
 		{
-			this.badgesSectionParent.SetAnchorPosY(0f);
-			this.achievementsPivot.SetAnchorPosY(this.badgesParent.anchoredPosition.y - this.badgesParentHeight);
+			//this.badgesSectionParent.SetAnchorPosY(0f);
+            
+            badgesSectionParent.gameObject.SetActive(false);
+			this.achievementsPivot.SetAnchorPosY(0);
 			float num = 0f;
 			if (sim.HasQuestOfUpdate())
 			{
@@ -245,6 +249,9 @@ namespace Ui
 			{
 				this.menuShowCurrencyAeon.gameObject.SetActive(false);
 			}
+
+            parentAchievements.GetChild(10).gameObject.SetActive(false);
+            Debug.Log("parentAchievements.GetChild(8) - " + parentAchievements.GetChild(10).name);
 		}
 
 		private void UpdateBadgesList(Simulator simulator)
@@ -264,7 +271,7 @@ namespace Ui
 				{
 					BadgeWidget badgeWidget = this.badges[i];
 					Badge badge = displayableBadges[i];
-					badgeWidget.Init(badge, new Action<BadgeWidget>(this.OnBadgeClicked), badge.HasBeenEarnedByPlayer(simulator), badge.IsNotificationEnabled(simulator));
+					badgeWidget.Init(badge, new Action<BadgeWidget>(this.OnBadgeClicked), badge.HasBeenEarnedByPlayer(simulator), false);
 					badgeWidget.rectTransform.anchoredPosition = new Vector2((float)(i % 4) * this.gapBetweenBadges + 22.5f, -(22.5f + (this.badgeWidgetSize.y + 11f) * (float)(i / 4)));
 				}
 			}
@@ -274,7 +281,7 @@ namespace Ui
 				{
 					BadgeWidget badgeWidget2 = this.badges[j];
 					Badge badge2 = displayableBadges[j];
-					badgeWidget2.Init(badge2, new Action<BadgeWidget>(this.OnBadgeClicked), badge2.HasBeenEarnedByPlayer(simulator), badge2.IsNotificationEnabled(simulator));
+					badgeWidget2.Init(badge2, new Action<BadgeWidget>(this.OnBadgeClicked), badge2.HasBeenEarnedByPlayer(simulator), false);
 					badgeWidget2.rectTransform.anchoredPosition = new Vector2((float)(j % 4) * this.gapBetweenBadges + 22.5f, -(22.5f + (this.badgeWidgetSize.y + 11f) * (float)(j / 4)));
 				}
 			}

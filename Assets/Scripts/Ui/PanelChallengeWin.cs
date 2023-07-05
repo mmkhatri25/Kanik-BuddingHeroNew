@@ -19,6 +19,7 @@ namespace Ui
 			this.InitStrings();
 			this.rangeEndY = this.leftRangeRectTransform.anchoredPosition.y;
 			this.crownEndY = this.crownRectTransform.anchoredPosition.y;
+            this.shareButton.gameObject.SetActive(false);
 		}
 
 		public void InitStrings()
@@ -187,14 +188,14 @@ namespace Ui
 
 		public void ShowShareButton()
 		{
-			this.shareButton.gameObject.SetActive(true);
-			this.button.rectTransform.SetAnchorPosX(74.3f);
-			this.button.rectTransform.SetSizeDeltaX(340f);
+			this.shareButton.gameObject.SetActive(false);
+			////this.button.rectTransform.SetAnchorPosX(74.3f);
+			//this.button.rectTransform.SetSizeDeltaX(340f);
 		}
 
 		public void SetRewardDetails(Unlock unlock, UiManager uiManager, bool showShareButton)
 		{
-			if (showShareButton)
+			/*if (showShareButton)
 			{
 				this.ShowShareButton();
 			}
@@ -203,7 +204,7 @@ namespace Ui
 				this.shareButton.gameObject.SetActive(false);
 				this.button.rectTransform.SetAnchorPosX(0f);
 				this.button.rectTransform.SetSizeDeltaX(356f);
-			}
+			}*/
 			this.textReward.text = unlock.GetRewardedString();
 			this.imageReward.color = Color.white;
 			this.charmPack.gameObject.SetActive(false);

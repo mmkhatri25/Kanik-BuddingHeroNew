@@ -152,6 +152,7 @@ public class Main : MonoBehaviour
 
 	private void CheckPlayfabData()
 	{
+        //return;
 		PlayfabManager.AskTitleData();
 		PlayfabManager.AskPlayerData(delegate(bool isDataSuccess, SaveData saveData, PlayfabManager.RewardData rewardData)
 		{
@@ -679,7 +680,7 @@ public class Main : MonoBehaviour
 				this.AddEventNotificationIfNecessary(list, "secondAnniversary", "currencyBundle2", "NOTIF_SHOP_OFFER");
 			}
 		}
-		StoreManager.SetNotifications(this.sim.GetTimeForNextFreeLootpack(DateTime.Now), this.sim.GetTimeForNextShopOffer(), minesDuration, num, flashOfferDuration, secondsTillDustRestBonusFull, list);
+		StoreManager.SetNotifications(this.sim.GetTimeForNextFreeLootpack(), this.sim.GetTimeForNextShopOffer(), minesDuration, num, flashOfferDuration, secondsTillDustRestBonusFull, list);
 	}
 
 	private void AddEventNotificationIfNecessary(List<StoreManager.NotificationInfo> notifications, string eventId, string internalEventId, string locKey)
@@ -1114,22 +1115,23 @@ public class Main : MonoBehaviour
 
 	private void Update()
 	{
+    //this.sim.GainCurrency(CurrencyType.GOLD, 1000);
 		this.justTriedSaving = false;
-		//try
-		//{
+		try
+		{
 			DynamicLoadManager.UpdatePendingRequests();
 			PlayerStats.Update();
 			Main.localSaveDataLifetimeInTicks += (long)(Time.deltaTime * 1E+07f);
-			//if (RewardedAdManager.inst != null)
-			//{
-			//	RewardedAdManager.Advance();
-			//	if (RewardedAdManager.inst.IsWatchingAnyAd())
-			//	{
-			//		AudioListener.volume = 0f;
-			//		return;
-			//	}
-			//	AudioListener.volume = 1f;
-			//}
+			if (RewardedAdManager.inst != null)
+			{
+				RewardedAdManager.Advance();
+				if (RewardedAdManager.inst.IsWatchingAnyAd())
+				{
+					AudioListener.volume = 0f;
+					return;
+				}
+				AudioListener.volume = 1f;
+			}
 			float deltaTime = Time.deltaTime;
 			TrustedTime.Increment((double)deltaTime);
 			if (Main.lastOfflineEarnedTime != DateTime.MaxValue)
@@ -1155,317 +1157,317 @@ public class Main : MonoBehaviour
 			{
 				Main.SetAppSleep(this.sim);
 			}
-			//if (IapManager.inst.boughtProductIndex == IapIds.XMAS_PACK)
-			//{
-			//	this.uiManager.selectedShopPack = new ShopPackXmas();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.panelShop.isHubMode)
-			//	{
-			//		this.RainCurrenciesPurchasedFromPackOnUi(activeWorld);
-			//		this.uiManager.state = UiState.HUB_SHOP;
-			//	}
-			//	else
-			//	{
-			//		activeWorld.RainCredits(this.uiManager.selectedShopPack.credits);
-			//		activeWorld.RainTokens(this.uiManager.selectedShopPack.tokensMax);
-			//		activeWorld.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
-			//		this.uiManager.state = UiState.NONE;
-			//	}
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.CURRENCY_PACK)
-			//{
-			//	this.uiManager.selectedShopPack = new ShopPackCurrency();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld2 = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.panelShop.isHubMode)
-			//	{
-			//		this.RainCurrenciesPurchasedFromPackOnUi(activeWorld2);
-			//		this.uiManager.state = UiState.HUB_SHOP;
-			//	}
-			//	else
-			//	{
-			//		activeWorld2.RainCredits(this.uiManager.selectedShopPack.credits);
-			//		activeWorld2.RainTokens(this.uiManager.selectedShopPack.tokensMax);
-			//		activeWorld2.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
-			//		this.uiManager.state = UiState.NONE;
-			//	}
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.STARTER_PACK)
-			//{
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	this.uiManager.selectedShopPack = new ShopPackStarter();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	this.uiManager.BuyShopPack();
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.STAGE_100_OFFER)
-			//{
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	this.uiManager.selectedShopPack = new ShopPackStage100();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	this.uiManager.BuyShopPack();
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.STAGE_300_OFFER)
-			//{
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	this.uiManager.selectedShopPack = new ShopPackStage300();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	this.uiManager.BuyShopPack();
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.STAGE_800_OFFER)
-			//{
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	this.uiManager.selectedShopPack = new ShopPackStage800();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	this.uiManager.BuyShopPack();
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.MID_GEM_OFFER)
-			//{
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	this.uiManager.selectedShopPack = new ShopPackBigGem();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	this.uiManager.BuyShopPack();
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.MID_GEM_OFFER_TWO)
-			//{
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	this.uiManager.selectedShopPack = new ShopPackBigGemTwo();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	this.uiManager.BuyShopPack();
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_01 || IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_02 || IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_03 || IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_04)
-			//{
-			//	if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_01)
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackRiftOffer01();
-			//	}
-			//	else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_02)
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackRiftOffer02();
-			//	}
-			//	else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_03)
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackRiftOffer03();
-			//	}
-			//	else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_04)
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackRiftOffer04();
-			//	}
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld3 = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.panelShop.isHubMode)
-			//	{
-			//		this.RainCurrenciesPurchasedFromPackOnUi(activeWorld3);
-			//		this.uiManager.state = UiState.HUB_SHOP;
-			//	}
-			//	else
-			//	{
-			//		activeWorld3.RainCredits(this.uiManager.selectedShopPack.credits);
-			//		activeWorld3.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
-			//		this.uiManager.state = UiState.NONE;
-			//	}
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.REGIONAL_01)
-			//{
-			//	this.uiManager.selectedShopPack = new ShopPackRegional01();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld4 = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.panelShop.isHubMode)
-			//	{
-			//		this.RainCurrenciesPurchasedFromPackOnUi(activeWorld4);
-			//		this.uiManager.state = UiState.HUB_SHOP;
-			//	}
-			//	else
-			//	{
-			//		activeWorld4.RainCredits(this.uiManager.selectedShopPack.credits);
-			//		activeWorld4.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
-			//		this.uiManager.state = UiState.NONE;
-			//	}
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.HALLOWEEN_GEMS_PACK)
-			//{
-			//	this.uiManager.selectedShopPack = new ShopPackHalloweenGems();
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld5 = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.panelShop.isHubMode)
-			//	{
-			//		this.RainCurrenciesPurchasedFromPackOnUi(activeWorld5);
-			//		this.uiManager.state = UiState.HUB_SHOP;
-			//	}
-			//	else
-			//	{
-			//		activeWorld5.RainCredits(this.uiManager.selectedShopPack.credits);
-			//		this.uiManager.state = UiState.NONE;
-			//	}
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.CANDY_PACK_01 || IapManager.inst.boughtProductIndex == IapIds.CANDY_PACK_02)
-			//{
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	double amount = 12500.0;
-			//	DropPosition dropPos = new DropPosition
-			//	{
-			//		startPos = this.uiManager.panelChristmasOffer.candyTreats[2].transform.position,
-			//		endPos = this.uiManager.panelChristmasOffer.candyTreats[2].transform.position + Vector3.down * 0.1f,
-			//		invPos = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform().position,
-			//		targetToScaleOnReach = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform()
-			//	};
-			//	this.sim.GetActiveWorld().RainCurrencyOnUi(UiState.CHRISTMAS_PANEL, CurrencyType.CANDY, amount, dropPos, 30, 0f, 0f, 1f, null, 0f);
-			//	this.uiManager.state = UiState.CHRISTMAS_PANEL;
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.CHRISTMAS_GEMS_BIG_PACK || IapManager.inst.boughtProductIndex == IapIds.CHRISTMAS_GEMS_SMALL_PACK)
-			//{
-			//	if (IapManager.inst.boughtProductIndex == IapIds.CHRISTMAS_GEMS_BIG_PACK)
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackChristmasGemsBig();
-			//	}
-			//	else
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackChristmasGemsSmall();
-			//	}
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld6 = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	DropPosition dropPos2 = new DropPosition
-			//	{
-			//		startPos = default(Vector3),
-			//		endPos = Vector3.down * 0.1f,
-			//		invPos = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform().position,
-			//		targetToScaleOnReach = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform()
-			//	};
-			//	activeWorld6.RainCurrencyOnUi(UiState.CHRISTMAS_PANEL, CurrencyType.CANDY, this.uiManager.selectedShopPack.candies, dropPos2, 30, 0f, 0f, 1f, null, 0f);
-			//	DropPosition dropPos3 = new DropPosition
-			//	{
-			//		startPos = default(Vector3),
-			//		endPos = Vector3.down * 0.1f,
-			//		invPos = this.uiManager.panelCurrencyOnTop[0].currencyFinalPosReference.position,
-			//		showSideCurrency = true
-			//	};
-			//	activeWorld6.RainCurrencyOnUi(UiState.CHRISTMAS_PANEL, CurrencyType.GEM, this.uiManager.selectedShopPack.credits, dropPos3, 30, 0f, 0f, 1f, null, 0f);
-			//	this.uiManager.state = UiState.CHRISTMAS_PANEL;
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_GEMS || IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_GEMS_TWO)
-			//{
-			//	if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_GEMS)
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryGems();
-			//	}
-			//	else
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryGemsTwo();
-			//	}
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld7 = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.secondAnniversaryPopup.previousState == UiState.HUB_SHOP)
-			//	{
-			//		this.RainCurrenciesPurchasedFromPackOnUi(activeWorld7);
-			//		this.uiManager.state = UiState.HUB_SHOP;
-			//	}
-			//	else
-			//	{
-			//		this.uiManager.state = UiState.NONE;
-			//		activeWorld7.RainCredits(this.uiManager.selectedShopPack.credits);
-			//	}
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_CURRENCY_PACK || IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_CURRENCY_PACK_TWO)
-			//{
-			//	if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_CURRENCY_PACK)
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryCurrencyBundle();
-			//	}
-			//	else
-			//	{
-			//		this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryCurrencyBundleTwo();
-			//	}
-			//	this.uiManager.selectedShopPack.OnPurchaseCompleted();
-			//	World activeWorld8 = this.sim.GetActiveWorld();
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.secondAnniversaryPopup.previousState == UiState.HUB_SHOP)
-			//	{
-			//		this.RainCurrenciesPurchasedFromPackOnUi(activeWorld8);
-			//		this.uiManager.state = UiState.SECOND_ANNIVERSARY_POPUP;
-			//	}
-			//	else
-			//	{
-			//		activeWorld8.RainCredits(this.uiManager.selectedShopPack.credits);
-			//		activeWorld8.RainTokens(this.uiManager.selectedShopPack.tokensMax);
-			//		activeWorld8.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
-			//		this.uiManager.state = UiState.NONE;
-			//	}
-			//	this.sim.ResetShopPackOffer();
-			//}
-			//else if (IapManager.inst.boughtProductIndex >= 0)
-			//{
-			//	int boughtProductIndex = IapManager.inst.boughtProductIndex;
-			//	PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
-			//	IapManager.inst.boughtProductIndex = -1;
-			//	if (this.uiManager.panelShop.isHubMode)
-			//	{
-			//		DropPosition dp = new DropPosition
-			//		{
-			//			startPos = this.uiManager.panelShop.panelBuyCredits[boughtProductIndex - 1].imageItem.transform.position,
-			//			endPos = this.uiManager.panelShop.panelBuyCredits[boughtProductIndex - 1].imageItem.transform.position + Vector3.down * 0.1f,
-			//			invPos = this.uiManager.panelHubShop.menuShowCurrencyCredits.GetCurrencyTransform().position,
-			//			targetToScaleOnReach = this.uiManager.panelHubShop.menuShowCurrencyCredits.GetCurrencyTransform()
-			//		};
-			//		this.sim.OnIap(boughtProductIndex, true, dp);
-			//	}
-			//	else
-			//	{
-			//		this.sim.OnIap(boughtProductIndex, false, null);
-			//		this.uiManager.state = UiState.NONE;
-			//	}
-			//}
-			//foreach (World world in this.sim.GetAllWorlds())
-			//{
-			//	if (world.shouldSave)
-			//	{
-			//		this.TrySave();
-			//		break;
-			//	}
-			//	if (world.shouldSoftSave)
-			//	{
-			//		this.softSaveTimer += deltaTime;
-			//		if (this.softSaveTimer > Main.SOFT_SAVE_COOLDOWN)
-			//		{
-			//			this.TrySave();
-			//			break;
-			//		}
-			//	}
-			//}
+			if (IapManager.inst.boughtProductIndex == IapIds.XMAS_PACK)
+			{
+				this.uiManager.selectedShopPack = new ShopPackXmas();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.panelShop.isHubMode)
+				{
+					this.RainCurrenciesPurchasedFromPackOnUi(activeWorld);
+					this.uiManager.state = UiState.HUB_SHOP;
+				}
+				else
+				{
+					activeWorld.RainCredits(this.uiManager.selectedShopPack.credits);
+					activeWorld.RainTokens(this.uiManager.selectedShopPack.tokensMax);
+					activeWorld.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
+					this.uiManager.state = UiState.NONE;
+				}
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.CURRENCY_PACK)
+			{
+				this.uiManager.selectedShopPack = new ShopPackCurrency();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld2 = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.panelShop.isHubMode)
+				{
+					this.RainCurrenciesPurchasedFromPackOnUi(activeWorld2);
+					this.uiManager.state = UiState.HUB_SHOP;
+				}
+				else
+				{
+					activeWorld2.RainCredits(this.uiManager.selectedShopPack.credits);
+					activeWorld2.RainTokens(this.uiManager.selectedShopPack.tokensMax);
+					activeWorld2.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
+					this.uiManager.state = UiState.NONE;
+				}
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.STARTER_PACK)
+			{
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				this.uiManager.selectedShopPack = new ShopPackStarter();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				this.uiManager.BuyShopPack();
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.STAGE_100_OFFER)
+			{
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				this.uiManager.selectedShopPack = new ShopPackStage100();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				this.uiManager.BuyShopPack();
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.STAGE_300_OFFER)
+			{
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				this.uiManager.selectedShopPack = new ShopPackStage300();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				this.uiManager.BuyShopPack();
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.STAGE_800_OFFER)
+			{
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				this.uiManager.selectedShopPack = new ShopPackStage800();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				this.uiManager.BuyShopPack();
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.MID_GEM_OFFER)
+			{
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				this.uiManager.selectedShopPack = new ShopPackBigGem();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				this.uiManager.BuyShopPack();
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.MID_GEM_OFFER_TWO)
+			{
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				this.uiManager.selectedShopPack = new ShopPackBigGemTwo();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				this.uiManager.BuyShopPack();
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_01 || IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_02 || IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_03 || IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_04)
+			{
+				if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_01)
+				{
+					this.uiManager.selectedShopPack = new ShopPackRiftOffer01();
+				}
+				else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_02)
+				{
+					this.uiManager.selectedShopPack = new ShopPackRiftOffer02();
+				}
+				else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_03)
+				{
+					this.uiManager.selectedShopPack = new ShopPackRiftOffer03();
+				}
+				else if (IapManager.inst.boughtProductIndex == IapIds.RIFT_OFFER_04)
+				{
+					this.uiManager.selectedShopPack = new ShopPackRiftOffer04();
+				}
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld3 = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.panelShop.isHubMode)
+				{
+					this.RainCurrenciesPurchasedFromPackOnUi(activeWorld3);
+					this.uiManager.state = UiState.HUB_SHOP;
+				}
+				else
+				{
+					activeWorld3.RainCredits(this.uiManager.selectedShopPack.credits);
+					activeWorld3.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
+					this.uiManager.state = UiState.NONE;
+				}
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.REGIONAL_01)
+			{
+				this.uiManager.selectedShopPack = new ShopPackRegional01();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld4 = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.panelShop.isHubMode)
+				{
+					this.RainCurrenciesPurchasedFromPackOnUi(activeWorld4);
+					this.uiManager.state = UiState.HUB_SHOP;
+				}
+				else
+				{
+					activeWorld4.RainCredits(this.uiManager.selectedShopPack.credits);
+					activeWorld4.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
+					this.uiManager.state = UiState.NONE;
+				}
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.HALLOWEEN_GEMS_PACK)
+			{
+				this.uiManager.selectedShopPack = new ShopPackHalloweenGems();
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld5 = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.panelShop.isHubMode)
+				{
+					this.RainCurrenciesPurchasedFromPackOnUi(activeWorld5);
+					this.uiManager.state = UiState.HUB_SHOP;
+				}
+				else
+				{
+					activeWorld5.RainCredits(this.uiManager.selectedShopPack.credits);
+					this.uiManager.state = UiState.NONE;
+				}
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.CANDY_PACK_01 || IapManager.inst.boughtProductIndex == IapIds.CANDY_PACK_02)
+			{
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				double amount = 12500.0;
+				DropPosition dropPos = new DropPosition
+				{
+					startPos = this.uiManager.panelChristmasOffer.candyTreats[2].transform.position,
+					endPos = this.uiManager.panelChristmasOffer.candyTreats[2].transform.position + Vector3.down * 0.1f,
+					invPos = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform().position,
+					targetToScaleOnReach = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform()
+				};
+				this.sim.GetActiveWorld().RainCurrencyOnUi(UiState.CHRISTMAS_PANEL, CurrencyType.CANDY, amount, dropPos, 30, 0f, 0f, 1f, null, 0f);
+				this.uiManager.state = UiState.CHRISTMAS_PANEL;
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.CHRISTMAS_GEMS_BIG_PACK || IapManager.inst.boughtProductIndex == IapIds.CHRISTMAS_GEMS_SMALL_PACK)
+			{
+				if (IapManager.inst.boughtProductIndex == IapIds.CHRISTMAS_GEMS_BIG_PACK)
+				{
+					this.uiManager.selectedShopPack = new ShopPackChristmasGemsBig();
+				}
+				else
+				{
+					this.uiManager.selectedShopPack = new ShopPackChristmasGemsSmall();
+				}
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld6 = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				DropPosition dropPos2 = new DropPosition
+				{
+					startPos = default(Vector3),
+					endPos = Vector3.down * 0.1f,
+					invPos = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform().position,
+					targetToScaleOnReach = this.uiManager.panelChristmasOffer.candies.GetCurrencyTransform()
+				};
+				activeWorld6.RainCurrencyOnUi(UiState.CHRISTMAS_PANEL, CurrencyType.CANDY, this.uiManager.selectedShopPack.candies, dropPos2, 30, 0f, 0f, 1f, null, 0f);
+				DropPosition dropPos3 = new DropPosition
+				{
+					startPos = default(Vector3),
+					endPos = Vector3.down * 0.1f,
+					invPos = this.uiManager.panelCurrencyOnTop[0].currencyFinalPosReference.position,
+					showSideCurrency = true
+				};
+				activeWorld6.RainCurrencyOnUi(UiState.CHRISTMAS_PANEL, CurrencyType.GEM, this.uiManager.selectedShopPack.credits, dropPos3, 30, 0f, 0f, 1f, null, 0f);
+				this.uiManager.state = UiState.CHRISTMAS_PANEL;
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_GEMS || IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_GEMS_TWO)
+			{
+				if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_GEMS)
+				{
+					this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryGems();
+				}
+				else
+				{
+					this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryGemsTwo();
+				}
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld7 = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.secondAnniversaryPopup.previousState == UiState.HUB_SHOP)
+				{
+					this.RainCurrenciesPurchasedFromPackOnUi(activeWorld7);
+					this.uiManager.state = UiState.HUB_SHOP;
+				}
+				else
+				{
+					this.uiManager.state = UiState.NONE;
+					activeWorld7.RainCredits(this.uiManager.selectedShopPack.credits);
+				}
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_CURRENCY_PACK || IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_CURRENCY_PACK_TWO)
+			{
+				if (IapManager.inst.boughtProductIndex == IapIds.SECOND_ANNIVERSARY_CURRENCY_PACK)
+				{
+					this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryCurrencyBundle();
+				}
+				else
+				{
+					this.uiManager.selectedShopPack = new ShopPackSecondAnniversaryCurrencyBundleTwo();
+				}
+				this.uiManager.selectedShopPack.OnPurchaseCompleted();
+				World activeWorld8 = this.sim.GetActiveWorld();
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.secondAnniversaryPopup.previousState == UiState.HUB_SHOP)
+				{
+					this.RainCurrenciesPurchasedFromPackOnUi(activeWorld8);
+					this.uiManager.state = UiState.SECOND_ANNIVERSARY_POPUP;
+				}
+				else
+				{
+					activeWorld8.RainCredits(this.uiManager.selectedShopPack.credits);
+					activeWorld8.RainTokens(this.uiManager.selectedShopPack.tokensMax);
+					activeWorld8.RainScraps(this.uiManager.selectedShopPack.scrapsMax);
+					this.uiManager.state = UiState.NONE;
+				}
+				this.sim.ResetShopPackOffer();
+			}
+			else if (IapManager.inst.boughtProductIndex >= 0)
+			{
+				int boughtProductIndex = IapManager.inst.boughtProductIndex;
+				PlayerStats.BoughtIAP(IapManager.inst.boughtProductIndex);
+				IapManager.inst.boughtProductIndex = -1;
+				if (this.uiManager.panelShop.isHubMode)
+				{
+					DropPosition dp = new DropPosition
+					{
+						startPos = this.uiManager.panelShop.panelBuyCredits[boughtProductIndex - 1].imageItem.transform.position,
+						endPos = this.uiManager.panelShop.panelBuyCredits[boughtProductIndex - 1].imageItem.transform.position + Vector3.down * 0.1f,
+						invPos = this.uiManager.panelHubShop.menuShowCurrencyCredits.GetCurrencyTransform().position,
+						targetToScaleOnReach = this.uiManager.panelHubShop.menuShowCurrencyCredits.GetCurrencyTransform()
+					};
+					this.sim.OnIap(boughtProductIndex, true, dp);
+				}
+				else
+				{
+					this.sim.OnIap(boughtProductIndex, false, null);
+					this.uiManager.state = UiState.NONE;
+				}
+			}
+			foreach (World world in this.sim.GetAllWorlds())
+			{
+				if (world.shouldSave)
+				{
+					this.TrySave();
+					break;
+				}
+				if (world.shouldSoftSave)
+				{
+					this.softSaveTimer += deltaTime;
+					if (this.softSaveTimer > Main.SOFT_SAVE_COOLDOWN)
+					{
+						this.TrySave();
+						break;
+					}
+				}
+			}
 			SaveLoadManager.timeSinceLastSave += deltaTime;
 			if (SaveLoadManager.timeSinceLastSave >= 300f)
 			{
@@ -1477,17 +1479,17 @@ public class Main : MonoBehaviour
                 this.CheckPlayfabData();
             }
             PlayfabManager.Update();
-  //      }
-		//catch (Exception ex)
-		//{
-		//	if (string.IsNullOrEmpty(this.DEBUGerror))
-		//	{
-		//		this.DEBUGerror = "Error at Main.Update:" + System.Environment.NewLine;
-		//		this.DEBUGerror = this.DEBUGerror + ex.Message + System.Environment.NewLine;
-		//		this.DEBUGerror += ex.StackTrace;
-		//	}
-		//	throw ex;
-		//}
+        }
+		catch (Exception ex)
+		{
+			if (string.IsNullOrEmpty(this.DEBUGerror))
+			{
+				this.DEBUGerror = "Error at Main.Update:" + System.Environment.NewLine;
+				this.DEBUGerror = this.DEBUGerror + ex.Message + System.Environment.NewLine;
+				this.DEBUGerror += ex.StackTrace;
+			}
+			throw ex;
+		}
 		if (Time.frameCount % 2 == 0)
 		{
 			ScreenRes currentRes = ScreenRes.GetCurrentRes();

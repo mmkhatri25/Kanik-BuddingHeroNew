@@ -51,8 +51,16 @@ namespace Ui
 			}
 			this.flashOfferTitle.text = LM.Get("SKIN_FLASH_OFFER_INFO_TITLE");
 			this.flashOfferDesc.text = LM.Get("SKIN_FLASH_OFFER_INFO_DESC");
+            this.flashOfferTitle.gameObject.SetActive(false);
+            this.flashOfferDesc.gameObject.SetActive(false);
+            originalPriceIcon.gameObject.SetActive(false);
+            originalPriceAmount.gameObject.SetActive(false);
+            flashOfferContentParent.gameObject.SetActive(false);
+            
 			this.gotToShopButton.text.text = LM.Get("GO_TO_TREE");
 			this.randomSkinMessage.text = LM.Get("RANDOM_SKIN_DESC");
+            flashOfferContentParent.gameObject.SetActive(false);
+            
 		}
 
 		private void Button_OnSkinSelected(int index)
@@ -93,6 +101,8 @@ namespace Ui
 			float value = -num - x + this.collumnGap;
 			float x2 = GameMath.Clamp(value, width - width2 - num, -num);
 			this.skinScroll.content.SetAnchorPosX(x2);
+            flashOfferContentParent.gameObject.SetActive(false);
+            
 		}
 
 		public void SetScrollContentSize(int skinCount)
@@ -106,6 +116,8 @@ namespace Ui
 		public void DoFlashHeroSpine(float dur, float delay)
 		{
 			this.PlayBuyFX(delay);
+            flashOfferContentParent.gameObject.SetActive(false);
+            
 		}
 
 		public void PlayBuyFX(float delay)

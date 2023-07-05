@@ -21,7 +21,7 @@ namespace Ui
 		public void InitStrings()
 		{
 			this.buttonDone.text.text = LM.Get("UI_OKAY");
-			this.hintLabel.text = LM.Get("UI_GEAR_GLOBAL_HINT");
+			//this.hintLabel.text = LM.Get("UI_GEAR_GLOBAL_HINT");
 		}
 
 		public void SetPack(ShopPack shopPack)

@@ -45,7 +45,6 @@ namespace Ui
 			this.offersTabTitle.text = LM.Get("CHRISTMAS_OFFERS_TITLE");
 			this.candiesDailyCapLabel.text = LM.Get("CANDY_DAILY_CAP");
 			this.candyTreats[2].buttonUpgradeAnim.textUp.text = string.Format(LM.Get("UNLOCK_REWARD_CANDIES"), GameMath.GetDoubleString(12500.0));
-			this.candyTreats[2].buttonUpgradeAnim.textDown.text = IapManager.productPriceStringsLocal[IapIds.CANDY_PACK_02];
 		}
 
 		public void PlayOfferPurchasedAnimationIfNecessary()
@@ -274,10 +273,7 @@ namespace Ui
 					this.candyTreats[1].buttonUpgradeAnim.textDown.text = LM.Get("UI_SHOP_CHEST_0");
 				}
 			}
-			if (UiManager.stateJustChanged)
-			{
-				this.candyTreats[2].buttonUpgradeAnim.textDown.text = IapManager.productPriceStringsLocal[IapIds.CANDY_PACK_02];
-			}
+			
 			int num = 0;
 			if (TrustedTime.IsReady())
 			{

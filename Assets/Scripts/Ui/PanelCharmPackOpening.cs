@@ -283,7 +283,7 @@ namespace Ui
 
 		private void PlayRevealCardSound()
 		{
-			UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiLootpackItem[2], 1f));
+			UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiLootpackItem[0], 1f));
 		}
 
 		private int GetTargetCount()
@@ -521,7 +521,7 @@ namespace Ui
 					}
 				});
 				sequence.Play<Sequence>();
-				UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiLootpackItem[2], 1f));
+				UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiLootpackItem[0], 1f));
 			}
 		}
 

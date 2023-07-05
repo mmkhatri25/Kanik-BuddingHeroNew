@@ -21,7 +21,7 @@ namespace Ui
 
 		private void OnSkipClicked()
 		{
-			this.uiManager.OnClickedDailySkip();
+			//this.uiManager.OnClickedDailySkip();
 		}
 
 		private void OnCollectClicked()

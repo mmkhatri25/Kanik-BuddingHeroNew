@@ -17,10 +17,18 @@ namespace Ui
 		public override void Init()
 		{
 			this.InitStrings();
+            buttonMineCollect.gameObject.SetActive(false);
+            
 		}
+        private void Update()
+        {
+            buttonMineCollect.gameObject.SetActive(false);
+            
+        }
 
-		public void InitStrings()
+        public void InitStrings()
 		{
+            buttonMineCollect.gameObject.SetActive(false);
 			this.textDesc.text = LM.Get("MINE_DESC");
 			this.nextLevelHeader.text = LM.Get("MINE_NEXT_LEVEL");
 			this.nextLevelAmountDescLabel.text = LM.Get("MINE_PRODUCES");

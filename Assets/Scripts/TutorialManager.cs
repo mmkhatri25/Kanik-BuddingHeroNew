@@ -68,7 +68,7 @@ public static class TutorialManager
 		TutorialManager.repeatRifts = TutorialManager.RepeatRifts.BEFORE_BEGIN;
 		TutorialManager.allRiftsFinished = TutorialManager.AllRiftsFinished.FIN;
 		TutorialManager.flashOffersUnlocked = TutorialManager.FlashOffersUnlocked.BEFORE_BEGIN;
-		TutorialManager.cursedGates = TutorialManager.CursedGates.BEFORE_BEGIN;
+		//TutorialManager.cursedGates = TutorialManager.CursedGates.BEFORE_BEGIN;
 		TutorialManager.missionsFinished = TutorialManager.MissionsFinished.BEFORE_BEGIN;
 		TutorialManager.trinketSmithingUnlocked = TutorialManager.TrinketSmithingUnlocked.BEFORE_BEGIN;
 		TutorialManager.trinketRecycleUnlocked = TutorialManager.TrinketRecycleUnlocked.BEFORE_BEGIN;
@@ -136,7 +136,7 @@ public static class TutorialManager
 			TutorialManager.aeonDust = TutorialManager.AeonDust.FIN;
 			TutorialManager.repeatRifts = TutorialManager.RepeatRifts.FIN;
 			TutorialManager.allRiftsFinished = TutorialManager.AllRiftsFinished.FIN;
-			TutorialManager.cursedGates = TutorialManager.CursedGates.FIN;
+			//TutorialManager.cursedGates = TutorialManager.CursedGates.FIN;
 		}
 		TutorialManager.flashOffersUnlocked = TutorialManager.FlashOffersUnlocked.FIN;
 		TutorialManager.missionsFinished = TutorialManager.MissionsFinished.FIN;
@@ -615,10 +615,10 @@ public static class TutorialManager
 
 	public static void OnCursedGatesUnlocked()
 	{
-		if (TutorialManager.cursedGates == TutorialManager.CursedGates.BEFORE_BEGIN)
-		{
-			TutorialManager.NextCursedGatesState();
-		}
+		//if (TutorialManager.cursedGates == TutorialManager.CursedGates.BEFORE_BEGIN)
+		//{
+		//	TutorialManager.NextCursedGatesState();
+		//}
 	}
 
 	public static void OnTutorialMissionsFinished()
@@ -1223,17 +1223,17 @@ public static class TutorialManager
 			TutorialManager.uiManager.panelShop.focusOnFlashOffers = TutorialManager.pressedOkay;
 			TutorialManager.NextFlashOffersUnlockedState();
 		}
-		if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_SELECT_GATE_PANEL)
-		{
-			if (TutorialManager.uiManager.state == UiState.RIFT_SELECT_POPUP)
-			{
-				TutorialManager.NextCursedGatesState();
-			}
-		}
-		else if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_CURSES_TAB && TutorialManager.uiManager.panelRiftSelect.isCurseMode)
-		{
-			TutorialManager.NextCursedGatesState();
-		}
+		//if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_SELECT_GATE_PANEL)
+		//{
+		//	if (TutorialManager.uiManager.state == UiState.RIFT_SELECT_POPUP)
+		//	{
+		//		TutorialManager.NextCursedGatesState();
+		//	}
+		//}
+		//else if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_CURSES_TAB && TutorialManager.uiManager.panelRiftSelect.isCurseMode)
+		//{
+		//	TutorialManager.NextCursedGatesState();
+		//}
 		if (TutorialManager.missionsFinished == TutorialManager.MissionsFinished.MESSAGE && TutorialManager.pressedOkay)
 		{
 			TutorialManager.NextMissionsFinishedState();
@@ -1742,15 +1742,15 @@ public static class TutorialManager
 
 	public static void NextCursedGatesState()
 	{
-		if (TutorialManager.cursedGates >= TutorialManager.CursedGates.FIN)
-		{
-			return;
-		}
-		TutorialManager.cursedGates++;
-		if (TutorialManager.cursedGates >= TutorialManager.CursedGates.FIN)
-		{
-			TutorialManager.OnTutorialStep(TutorialManager.cursedGates);
-		}
+		//if (TutorialManager.cursedGates >= TutorialManager.CursedGates.FIN)
+		//{
+		//	return;
+		//}
+		//TutorialManager.cursedGates++;
+		//if (TutorialManager.cursedGates >= TutorialManager.CursedGates.FIN)
+		//{
+		//	TutorialManager.OnTutorialStep(TutorialManager.cursedGates);
+		//}
 	}
 
 	public static void NextMissionsFinishedState()
@@ -1893,7 +1893,8 @@ public static class TutorialManager
 
 	private static bool UpdateCheckActiveOutput()
 	{
-		return TutorialManager.UpdateAndCheckActiveFirst() || TutorialManager.UpdateAndCheckActiveModeTab() || TutorialManager.UpdateAndCheckActiveShopTab() || TutorialManager.UpdateAndCheckActiveArtifactsTab() || TutorialManager.UpdateAndCheckActivePrestige() || TutorialManager.UpdateAndCheckActiveSkillScreen() || TutorialManager.UpdateAndCheckActiveFightBossButton() || TutorialManager.UpdateAndCheckActiveGearScreen() || TutorialManager.UpdateAndCheckActiveRuneScreen() || TutorialManager.UpdateAndCheckActiveRingPrestigeReminder() || TutorialManager.UpdateAndCheckActiveHeroPrestigeReminder() || TutorialManager.UpdateAndCheckActiveMythicalArtifacts() || TutorialManager.UpdateAndCheckActiveTrinketShop() || TutorialManager.UpdateAndCheckActiveTrinketHeroTab() || TutorialManager.UpdateAndCheckActiveMineShop() || TutorialManager.UpdateAndCheckDailyUnlock() || TutorialManager.UpdateAndCheckDailyComplete() || TutorialManager.UpdateAndCheckRiftsUnlockComplete() || TutorialManager.UpdateAndCheckRiftEffectsComplete() || TutorialManager.UpdateAndCheckFirstCharmComplete() || TutorialManager.UpdateAndCheckCharmHubComplete() || TutorialManager.UpdateAndCheckFirstCharmPackComplete() || TutorialManager.UpdateAndCheckCharmLevelUpComplete() || TutorialManager.UpdateAndCheckAeonDustComplete() || TutorialManager.UpdateAndCheckRepeatRiftsComplete() || TutorialManager.UpdateAndCheckAllRiftsFinishedComplete() || TutorialManager.UpdateAndCheckFlashOffersUnlockedComplete() || TutorialManager.UpdateAndCheckCursedGatesComplete() || TutorialManager.UpdateAndCheckMissionsFinishedComplete() || TutorialManager.UpdateAndCheckTrinketSmithingUnlockedComplete() || TutorialManager.UpdateAndCheckTrinketRecycleUnlockedComplete() || TutorialManager.UpdateAndCheckChristmasTreeEventUnlockedComplete() || TutorialManager.UpdateAndCheckArtifactOverhaulComplete();
+		return TutorialManager.UpdateAndCheckActiveFirst() || TutorialManager.UpdateAndCheckActiveModeTab() || TutorialManager.UpdateAndCheckActiveShopTab() || TutorialManager.UpdateAndCheckActiveArtifactsTab() || TutorialManager.UpdateAndCheckActivePrestige() || TutorialManager.UpdateAndCheckActiveSkillScreen() || TutorialManager.UpdateAndCheckActiveFightBossButton() || TutorialManager.UpdateAndCheckActiveGearScreen() || TutorialManager.UpdateAndCheckActiveRuneScreen() || TutorialManager.UpdateAndCheckActiveRingPrestigeReminder() || TutorialManager.UpdateAndCheckActiveHeroPrestigeReminder() || TutorialManager.UpdateAndCheckActiveMythicalArtifacts() || TutorialManager.UpdateAndCheckActiveTrinketShop() || TutorialManager.UpdateAndCheckActiveTrinketHeroTab() || TutorialManager.UpdateAndCheckActiveMineShop() || TutorialManager.UpdateAndCheckDailyUnlock() || TutorialManager.UpdateAndCheckDailyComplete() || TutorialManager.UpdateAndCheckRiftsUnlockComplete() || TutorialManager.UpdateAndCheckRiftEffectsComplete() || TutorialManager.UpdateAndCheckFirstCharmComplete() || TutorialManager.UpdateAndCheckCharmHubComplete() || TutorialManager.UpdateAndCheckFirstCharmPackComplete() || TutorialManager.UpdateAndCheckCharmLevelUpComplete() || TutorialManager.UpdateAndCheckAeonDustComplete() || TutorialManager.UpdateAndCheckRepeatRiftsComplete() || TutorialManager.UpdateAndCheckAllRiftsFinishedComplete() || TutorialManager.UpdateAndCheckFlashOffersUnlockedComplete() /*|| TutorialManager.UpdateAndCheckCursedGatesComplete() */|| TutorialManager.UpdateAndCheckMissionsFinishedComplete() || TutorialManager.UpdateAndCheckTrinketSmithingUnlockedComplete() || TutorialManager.UpdateAndCheckTrinketRecycleUnlockedComplete() || TutorialManager.UpdateAndCheckChristmasTreeEventUnlockedComplete() || TutorialManager.UpdateAndCheckArtifactOverhaulComplete();
+        
 	}
 
 	private static bool UpdateAndCheckActiveFirst()
@@ -2995,25 +2996,25 @@ public static class TutorialManager
 
 	private static bool UpdateAndCheckCursedGatesComplete()
 	{
-		if (TutorialManager.cursedGates == TutorialManager.CursedGates.BEFORE_BEGIN || TutorialManager.cursedGates == TutorialManager.CursedGates.FIN)
-		{
-			return false;
-		}
-		TutorialManager.spriteTutoChar = TutorialManager.pt.spriteTutoSerpent;
-		TutorialManager.spriteTutoCharPosition = TutorialManager.SpriteTutoCharRightPosition;
-		if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_SELECT_GATE_PANEL)
-		{
-			TutorialManager.pt.Move(-120f, -19f, 630f, -45f, 420f);
-			TutorialManager.SetArrow(TutorialManager.pt, TutorialManager.uiManager.panelHubModeSetup.buttonSelectRift.transform, true, true, 0.1f, true, 0f);
-			TutorialManager.SetText(TutorialManager.pt, LM.Get("TUTO_CURSE_1"), TutorialManager.TextPositionWhenCharAtRight);
-		}
-		else if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_CURSES_TAB)
-		{
-			TutorialManager.pt.Move(0f, -19f, 630f, -45f, 420f);
-			TutorialManager.SetArrow(TutorialManager.pt, TutorialManager.uiManager.panelRiftSelect.buttonTabCursed.transform, false, true, 0.1f, false, 0f);
-			TutorialManager.SetText(TutorialManager.pt, LM.Get("TUTO_CURSE_2"), TutorialManager.TextPositionWhenCharAtRight);
-		}
-		return true;
+		//if (TutorialManager.cursedGates == TutorialManager.CursedGates.BEFORE_BEGIN || TutorialManager.cursedGates == TutorialManager.CursedGates.FIN)
+		//{
+		//	return false;
+		//}
+		//TutorialManager.spriteTutoChar = TutorialManager.pt.spriteTutoSerpent;
+		//TutorialManager.spriteTutoCharPosition = TutorialManager.SpriteTutoCharRightPosition;
+		//if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_SELECT_GATE_PANEL)
+		//{
+		//	TutorialManager.pt.Move(-120f, -19f, 630f, -45f, 420f);
+		//	TutorialManager.SetArrow(TutorialManager.pt, TutorialManager.uiManager.panelHubModeSetup.buttonSelectRift.transform, true, true, 0.1f, true, 0f);
+		//	TutorialManager.SetText(TutorialManager.pt, LM.Get("TUTO_CURSE_1"), TutorialManager.TextPositionWhenCharAtRight);
+		//}
+		//else if (TutorialManager.cursedGates == TutorialManager.CursedGates.OPEN_CURSES_TAB)
+		//{
+		//	TutorialManager.pt.Move(0f, -19f, 630f, -45f, 420f);
+		//	TutorialManager.SetArrow(TutorialManager.pt, TutorialManager.uiManager.panelRiftSelect.buttonTabCursed.transform, false, true, 0.1f, false, 0f);
+		//	TutorialManager.SetText(TutorialManager.pt, LM.Get("TUTO_CURSE_2"), TutorialManager.TextPositionWhenCharAtRight);
+		//}
+		return false;
 	}
 
 	private static bool UpdateAndCheckMissionsFinishedComplete()
@@ -3086,7 +3087,7 @@ public static class TutorialManager
 		if (TutorialManager.christmasTreeEventUnlocked == TutorialManager.ChristmasTreeEventUnlocked.OPEN_POPUP)
 		{
 			TutorialManager.SetText(TutorialManager.pt, LM.Get("CHRISTMAS_TREE_EVENT_TUTORIAL_1"));
-			TutorialManager.SetArrow(TutorialManager.pt, (TutorialManager.uiManager.state != UiState.HUB) ? TutorialManager.uiManager.openOfferPopupButton.transform : TutorialManager.uiManager.panelHub.christmasEventParent.transform, false, true, (TutorialManager.uiManager.state != UiState.HUB) ? 0f : -0.1f, false, 0f);
+			//TutorialManager.SetArrow(TutorialManager.pt, (TutorialManager.uiManager.state != UiState.HUB) ? TutorialManager.uiManager.openOfferPopupButton.transform : TutorialManager.uiManager.panelHub.christmasEventParent.transform, false, true, (TutorialManager.uiManager.state != UiState.HUB) ? 0f : -0.1f, false, 0f);
 			TutorialManager.pt.Move(0f, 64f, 620f, 0f, 400f);
 		}
 		else if (TutorialManager.christmasTreeEventUnlocked == TutorialManager.ChristmasTreeEventUnlocked.WAIT_ANIM)

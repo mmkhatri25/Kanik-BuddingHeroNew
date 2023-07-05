@@ -19,6 +19,11 @@ namespace Ui
 				this.colorHowManyLeft = this.textHowManyLeft.color;
 				this.spriteBgNormal = this.image.sprite;
 			}
+            //this.textPrice.gameObject.SetActive(true);
+                Debug.Log("Here textTitle - "+ textTitle.text);
+            
+                if (textTitle.text == "TRINKET BOX")
+                    this.textPrice.text =  "Trinket Box";
 		}
 
 		public override void AahUpdate(float dt)
@@ -32,8 +37,11 @@ namespace Ui
 			{
 				this.image.sprite = this.spriteBgNormal;
 				this.textPrice.gameObject.SetActive(true);
+                if (textTitle.text == "trinket box")
+                    this.textPrice.text = "In Stock";
 				this.textHowManyLeft.rectTransform.SetAnchorPosY(-80f);
 				this.textHowManyLeft.color = MerchantItem.COLOR_ITEMCOUNT_INSTOCK;
+                Debug.Log("Here setting state true");
 			}
 			else
 			{
@@ -41,6 +49,8 @@ namespace Ui
 				this.textPrice.gameObject.SetActive(false);
 				this.textHowManyLeft.rectTransform.SetAnchorPosY(-240f);
 				this.textHowManyLeft.color = MerchantItem.COLOR_ITEMCOUNT_SOLDOUT;
+                Debug.Log("Here setting state false");
+                
 			}
 		}
 

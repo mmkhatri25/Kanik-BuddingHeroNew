@@ -119,7 +119,7 @@ namespace Ui
 
 		public void EnableShareButton()
 		{
-			this.shareScreenshotButton.gameObject.SetActive(true);
+			this.shareScreenshotButton.gameObject.SetActive(false);
 			this.buttonAbandonChallenge.rectTransform.SetAnchorPosX(73f);
 			this.buttonAbandonChallenge.rectTransform.SetSizeDeltaX(405f);
 			this.buttonPrestige.rectTransform.SetAnchorPosX(73f);

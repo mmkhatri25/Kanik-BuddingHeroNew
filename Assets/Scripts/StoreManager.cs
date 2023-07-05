@@ -75,14 +75,16 @@ public static class StoreManager
 
 	public static void ReportAchievement(string achievementId)
 	{
+            return;
+    
 		if (StoreManager.authState != AuthState.COMPLETED_SUCCESS)
 		{
 			UnityEngine.Debug.Log("You no auth, get out with your Achievements!");
 			return;
 		}
-		Social.ReportProgress(achievementId, 100.0, delegate(bool res)
-		{
-		});
+		//Social.ReportProgress(achievementId, 100.0, delegate(bool res)
+		//{
+		//});
 	}
 
 	public static void CheckAchievements(Dictionary<string, bool> localAchievements)

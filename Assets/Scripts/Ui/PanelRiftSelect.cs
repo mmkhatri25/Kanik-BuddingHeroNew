@@ -23,6 +23,8 @@ namespace Ui
 			RiftOptionWidget.selectedBackgroundColor = this.selectedBackgroundColor;
 			RiftOptionWidget.lockedNameColor = this.lockedNameColor;
 			RiftOptionWidget.normalNameColor = this.normalNameColor;
+            this.buttonTabCursed.gameObject.SetActive(false);
+            buttonTabNormal.transform.position = new Vector3(0f, buttonTabNormal.transform.position.y, 0f);
 			this.selectedRiftIndex = int.MinValue;
 			this.buttonTabCursed.onClick = delegate()
 			{
@@ -378,6 +380,7 @@ namespace Ui
 			this.buttonDiscoverPrimal.text.text = LM.Get("UI_DISCOVER");
 			this.buttonSelect.text.text = LM.Get("UI_SELECT");
 			this.remainingPointsToNextReardHint.text = LM.Get("RIFT_AEON_DAILY_BONUS");
+            remainingPointsToNextReardHint.gameObject.SetActive(false);
 			this.riftDiscoverCost.text = LM.Get("UI_DISCOVER_D_1");
 			this.currentCursesLabel.text = LM.Get("CURRENT_CURSES") + ":";
 			this.buttonTabCursed.text.text = LM.Get("RIFT_TAB_CURSED");

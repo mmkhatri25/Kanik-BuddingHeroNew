@@ -22,9 +22,6 @@ namespace Ui
 			{
 				this.text = base.GetComponentInChildren<Text>();
 			}
-                    this.SetCurrency(CurrencyType.GOLD, "1000000", true, GameMode.STANDARD, false);
-            print("gold here is ");
-            
 		}
 
 		public void SetCurrency(CurrencyType v, string amount, bool setColor = true, GameMode coinType = GameMode.STANDARD, bool showIcon = true)

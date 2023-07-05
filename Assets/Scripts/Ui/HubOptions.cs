@@ -27,6 +27,22 @@ namespace Ui
 				UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiMenuBack, 1f));
 			};
 			this.cloudSaveIcon.sprite = this.googlePlayIcon;
+            buttonAchievements.gameObject.SetActive(false);
+            buttonLeaderboards.gameObject.SetActive(false);
+            buttonWiki.gameObject.SetActive(false);
+            buttonSecret.gameObject.SetActive(false);
+            buttonCommunity.gameObject.SetActive(false);
+            buttonContact.gameObject.SetActive(false);
+            buttonCloudSave.gameObject.SetActive(false);
+            storeName.gameObject.SetActive(false);
+            buttonDeleteSave.gameObject.SetActive(false);
+            buttonUpdateInfo.gameObject.SetActive(false);
+            buttonAdvancedOptions.gameObject.SetActive(false);
+            buttonGameInfo.gameObject.SetActive(false);
+            //buttonMusicOnOff.transform.position = new Vector3(0, buttonMusicOnOff.transform.position.y, 0f);
+            //buttonSoundOnOff.transform.position = new Vector3(0,buttonMusicOnOff.transform.position.y+400, 0f);
+            this.textMusicOnOff.transform.position = new Vector3(0,  buttonMusicOnOff.transform.position.y, 0f);
+            this.textSoundOnOff.transform.localPosition = new Vector3(0,textSoundOnOff.transform.localPosition.y-280f, 0f);
 		}
 
 		private void Button_CoppyPlayfabId()
@@ -35,6 +51,9 @@ namespace Ui
 			textEditor.text = PlayfabManager.playerId;
 			textEditor.SelectAll();
 			textEditor.Copy();
+            textPlayfabId.text = "";
+            textVersion.text = "";
+            
 		}
 
 		public void InitStrings()
@@ -57,6 +76,7 @@ namespace Ui
 			this.buttonDeleteSave.text.text = LM.Get("OPTIONS_HARD_RESET");
 			this.buttonAdvancedOptions.text.text = LM.Get("OPTIONS_ADVANCED");
 			this.buttonGameInfo.text.text = LM.Get("UI_BUTTON_GAME_INFO");
+            buttonGameInfo.gameObject.transform.position = new Vector3(0,buttonGameInfo.gameObject.transform.position.y, buttonGameInfo.gameObject.transform.position.z );
 			this.buttonUpdateInfo.text.text = LM.Get("UI_PATCH_NOTES");
 			Utility.OptimizeFontSizes(new Text[]
 			{
@@ -69,6 +89,9 @@ namespace Ui
 			this.storeName.text = UiManager.GetStoreNameString();
 			ButtonOnOff.onString = LM.Get("UI_OPTIONS_ON");
 			ButtonOnOff.offString = LM.Get("UI_OPTIONS_OFF");
+            buttonLanguage.GetComponent<GameButton>().interactable = false;
+            buttonLanguage.GetComponent<Image>().SetImageAlpha(0f);
+            this.buttonLanguage.text.color = Color.white;
 		}
 
 		public override void AahUpdate(float dt)

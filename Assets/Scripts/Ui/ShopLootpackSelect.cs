@@ -36,7 +36,7 @@ namespace Ui
 			{
 				this.spineChest.gameObject.SetActive(true);
 				this.spineChest.SetSkin(shopPack, true);
-				this.twoBagsParent.SetActive(false);
+				this.twoBagsParent.SetActive(true);
 				this.threeBagsParent.SetActive(false);
 				if (shopPack is ShopPackRune)
 				{

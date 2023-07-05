@@ -249,7 +249,7 @@ public class PreLoader : MonoBehaviour, IAndroidPopupCalbackReceiver
 				num2 = 1f;
 			}
 			this.loadingBarCan.alpha = num2;
-			this.loadingBarCan.transform.localScale = Vector3.one * (1.2f - num2 * 0.2f);
+		//	this.loadingBarCan.transform.localScale = Vector3.one * (1.2f - num2 * 0.2f);
 		}
 		else if (!this.triggered && this.fakeLoadingDur <= 0f)
 		{

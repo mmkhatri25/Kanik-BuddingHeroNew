@@ -26,6 +26,11 @@ namespace Ui
 {
     public class UiManager : MonoBehaviour
     {
+    
+    void UpdateCurrency()
+        {
+
+        }
         public UiState state
         {
             get
@@ -922,6 +927,13 @@ namespace Ui
                     this.panelUpdateRequired.timer = 0f;*/
                     break;
                 case UiState.GENERAL_POPUP:
+                if (this.panelGeneralPopup.state == PanelGeneralPopup.State.MODE)
+                    {
+                        this.OpenMenu(value, false, 1, 1, new int[]
+                        {
+                            29
+                        });
+                    }
                     /*if (this.panelGeneralPopup.state == PanelGeneralPopup.State.NONE)
                     {
                         this.OpenMenu(value, false, -1, -1, new int[]
@@ -2288,6 +2300,19 @@ namespace Ui
                 ChallengeRift rift2 = world.cursedChallenges[j] as ChallengeRift;
                 this.riftDiffsCursed.Add(RiftUtility.GetDifficulty(this.sim, world, rift2, this.sim.GetUniversalBonusRift()));
             }
+        }
+        private void FixedUpdate()
+        {
+              //this.sim.GainCurrency(CurrencyType.AEON, 100);
+              ////this.sim.GainCurrency(CurrencyType.CANDY, 1);
+              //this.sim.GainCurrency(CurrencyType.GEM, 100);
+              //this.sim.GainCurrency(CurrencyType.GOLD, 100);
+              //this.sim.GainCurrency(CurrencyType.MYTHSTONE, 100);
+              //this.sim.GainCurrency(CurrencyType.SCRAP, 100);
+              //this.sim.GainCurrency(CurrencyType.TOKEN, 100);
+              ////this.sim.GainCurrency(CurrencyType.TRINKET_BOX, 1);
+              
+            //print("here currentcy");
         }
 
         private bool IsShopState(UiState state)
@@ -3742,7 +3767,7 @@ namespace Ui
             };
             this.hubOptions.buttonLanguage.onClick = delegate()
             {
-                this.OnClickedLanguageChange();
+                //this.OnClickedLanguageChange();
             };
             this.hubOptions.buttonWiki.onClick = delegate()
             {
@@ -3828,7 +3853,7 @@ namespace Ui
                 StoreManager.eventsNotifications = !StoreManager.eventsNotifications;
                 this.OnClickedAdvancedNotifOnOff();
             };
-            this.hubOptions.textVersion.text = Cheats.version;
+            this.hubOptions.textVersion.text = "";//Cheats.version;
             this.hubOptions.uiManager = this;
         }
 
@@ -4879,9 +4904,15 @@ namespace Ui
                 UiManager.AddUiSound(SoundArchieve.inst.uiPopupAppear);
             };
         }
+        private void Update()
+        {
+            openOfferPopupButton.gameObject.SetActive(false);
+            
+        }
 
         public void InitStrings()
         {
+            openOfferPopupButton.gameObject.SetActive(false);
             this.InitStringsTabBarButtons();
             this.panelAdPopup.InitStrings();
             this.panelArtifactsCraft.InitStrings();
@@ -5587,13 +5618,14 @@ namespace Ui
             }
             if (!this.panelRiftSelect.isOnDiscoverMode)
             {
-                bool flag = this.sim.IsCursedRiftsModeUnlocked();
+                bool flag = false;//this.sim.IsCursedRiftsModeUnlocked();
                 this.panelRiftSelect.SetPositioning(flag, isCurseMode);
                 if (flag)
                 {
                     this.panelRiftSelect.tabButtonsParent.gameObject.SetActive(true);
                     this.panelRiftSelect.buttonTabNormal.interactable = isCurseMode;
-                    this.panelRiftSelect.buttonTabCursed.interactable = !isCurseMode;
+                    this.panelRiftSelect.buttonTabCursed.interactable = false; //!isCurseMode;
+                    
                 }
                 else
                 {
@@ -6993,7 +7025,9 @@ namespace Ui
             {
                 if (this.sim.hasDailies)
                 {
-                    this.dailyQuestIndicatorWidget.gameObject.SetActive(true);
+                   // this.dailyQuestIndicatorWidget.gameObject.SetActive(false);
+              
+                    this.dailyQuestIndicatorWidget.gameObject.SetActive(false);
                     DailyQuest dailyQuest = this.sim.dailyQuest;
                     if (dailyQuest != null)
                     {
@@ -7022,6 +7056,8 @@ namespace Ui
                         this.dailyQuestIndicatorWidget.dailyIcon.sprite = this.dailyQuestIndicatorWidget.iconDisabled;
                     }
                     this.dailyQuestIndicatorWidget.RectTransform.SetAnchorPosX((!this.sim.specialOfferBoard.AnyAnnouncedOfferAvailable(this.sim) && !this.sim.halloweenEnabled && !this.sim.IsChristmasTreeEnabled() && !this.sim.IsSecondAnniversaryEventEnabled()) ? -267.8f : -329.3f);
+                    this.dailyQuestIndicatorWidget.gameObject.SetActive(false);
+                
                 }
                 else
                 {
@@ -8171,10 +8207,10 @@ namespace Ui
                 {
                     TutorialManager.OnFlashOffersUnlocked();
                 }
-                else if (TutorialManager.cursedGates == TutorialManager.CursedGates.BEFORE_BEGIN && this.sim.IsCursedRiftsModeUnlocked() && this.state == UiState.HUB_MODE_SETUP && this.panelHubModeSetup.IsRiftMode())
-                {
-                    TutorialManager.OnCursedGatesUnlocked();
-                }
+                //else if (TutorialManager.cursedGates == TutorialManager.CursedGates.BEFORE_BEGIN && this.sim.IsCursedRiftsModeUnlocked() && this.state == UiState.HUB_MODE_SETUP && this.panelHubModeSetup.IsRiftMode())
+                //{
+                //    TutorialManager.OnCursedGatesUnlocked();
+                //}
                 else if (TutorialManager.trinketSmithingUnlocked == TutorialManager.TrinketSmithingUnlocked.BEFORE_BEGIN && this.sim.GetUnlock(UnlockIds.TRINKET_DISASSEMBLE).isCollected && this.state == UiState.NONE)
                 {
                     TutorialManager.OnTrinketSmithinUnlocked();
@@ -9302,14 +9338,14 @@ namespace Ui
                         if (difference.Hours >= 4 )
                         {
                             
-                            merchantItem.textPrice.text = "FREE";
+                            merchantItem.textPrice.text = "Claimed";
                             merchantItem.buttonUpgradeAnim.GetComponent<GameButton>().interactable = true;
 
                         }
                         else
                         {
-                            
-                            merchantItem.textPrice.text = "Try again after " + (4 - (int)difference.Hours) + " hours";
+
+                            merchantItem.textPrice.text = "Claimed"; //"Try again after " + (4 - (int)difference.Hours) + " hours";
                             merchantItem.buttonUpgradeAnim.GetComponent<GameButton>().interactable = false;
                         }
 
@@ -10793,7 +10829,7 @@ namespace Ui
             }
             if (UiManager.stateJustChanged)
             {
-                this.hubOptions.textPlayfabId.text = "ID: " + PlayfabManager.playerId;
+                this.hubOptions.textPlayfabId.text = "";// "ID: " + PlayfabManager.playerId;
                 if (this.sim.hasCompass)
                 {
                     panelAdvancedOptions.compassWidget.gameObject.SetActive(true);
@@ -14870,7 +14906,7 @@ namespace Ui
                 id = "UI_MODE_ABANDON_RIFT";
                 id2 = "UI_ABANDON_CHECK_RIFT";
             }
-            /*this.panelGeneralPopup.SetDetails(PanelGeneralPopup.State.MODE, LM.Get(id), LM.Get(id2), true, delegate
+            this.panelGeneralPopup.SetDetails(PanelGeneralPopup.State.MODE, LM.Get(id), LM.Get(id2), true, delegate
             {
                 this.command = new UiCommandAbandonChallenge();
                 this.loadingTransition.abandonOrFailed = true;
@@ -14881,7 +14917,7 @@ namespace Ui
                 UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiTabSwitch, 1f));
             }, LM.Get("UI_NO"), 0f, 160f, null, null);
             UiManager.sounds.Add(new SoundEventUiSimple(SoundArchieve.inst.uiTabSwitch, 1f));
-            this.state = UiState.GENERAL_POPUP;*/
+            this.state = UiState.GENERAL_POPUP;
         }
 
         private void OnClickedIAP(int index)
@@ -15557,11 +15593,11 @@ namespace Ui
                     "\n- ",
                     LM.Get("UI_DISCOVER_D_0"),
                     "\n- ",
-                    LM.Get("UI_DISCOVER_D_2"),
-                    "\n- ",
-                    LM.Get("UI_DISCOVER_D_3"),
-                    "\n- ",
-                    LM.Get("UI_DISCOVER_D_6")
+                    LM.Get("UI_DISCOVER_D_2")//,
+                    //"\n- ",
+                    //LM.Get("UI_DISCOVER_D_3"),
+                    //"\n- ",
+                    //LM.Get("UI_DISCOVER_D_6")
                 });
                 if (this.sim.IsCursedRiftsModeUnlocked())
                 {
@@ -20279,13 +20315,13 @@ namespace Ui
 
         //public DailyQuestIndicator openOfferPopupWidget;
 
-        //public GameButton openOfferPopupButton;
+        public GameButton openOfferPopupButton;
 
         //public Image openOfferPopupButtonFillBar;
 
         //public Image openOfferPopupButtonIcon;
 
-        //public Image openOfferPopupButtonNotif;
+        public Image openOfferPopupButtonNotif;
 
         public GameObject uiBg;
 
@@ -20415,7 +20451,7 @@ namespace Ui
 
         //public PanelUpdateRequired panelUpdateRequired;
 
-        //public PanelGeneralPopup panelGeneralPopup;
+        public PanelGeneralPopup panelGeneralPopup;
 
         public PanelTrinketPopup panelTrinketPopup;
 

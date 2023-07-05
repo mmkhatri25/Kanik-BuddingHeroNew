@@ -25,6 +25,7 @@ namespace Ui
 			this.openButton.text.text = LM.Get("UI_MERCHANT_SELECT_BUY");
 			this.buyWithGemButton.textDown.text = LM.Get("UI_BUY");
 			this.buyWithAeonButton.textDown.text = LM.Get("UI_BUY");
+            this.stockCountLabel.text = "In Stock";
 		}
 
 		public GameButton openButton;

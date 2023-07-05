@@ -69,8 +69,8 @@ namespace Ui
 					foreach (BoneFollowerGraphic boneFollowerGraphic in this.conversionAnimArtifacts)
 					{
 						boneFollowerGraphic.enabled = true;
-						boneFollowerGraphic.gameObject.SetActive(false);
-					}
+						boneFollowerGraphic.gameObject.SetActive(true); //// Dushyant
+						}
 					this.period = ((!this.skipArtifactShow) ? 1.5f : 0.2f);
 					break;
 				case PanelArtifactsCraft.State.Begin:
@@ -176,8 +176,8 @@ namespace Ui
             this.newArtifactWarningCanvasGroup = this.newArtifactWarningParent.GetComponent<CanvasGroup>();
             foreach (BoneFollowerGraphic boneFollowerGraphic in this.conversionAnimArtifacts)
             {
-                boneFollowerGraphic.enabled = false;
-                boneFollowerGraphic.gameObject.SetActive(false);
+                boneFollowerGraphic.enabled = true; // Dushyant
+                boneFollowerGraphic.gameObject.SetActive(true);
             }
         }
 

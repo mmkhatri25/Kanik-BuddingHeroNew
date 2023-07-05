@@ -7,7 +7,7 @@ namespace Ui
 	{
 		public override void Apply(Simulator sim)
 		{
-			IapManager.inst.Buy(this.index);
+			  //IapManager.inst.Buy(this.index);
 		}
 
 		public int index;

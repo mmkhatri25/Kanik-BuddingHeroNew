@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Simulation;
+using stats;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ namespace Ui
 				{
 					result = (this.m_rectTransform = base.GetComponent<RectTransform>());
 				}
+            content.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(scrollView.content.sizeDelta.x, 1600f);
+                
 				return result;
 			}
 		}
@@ -35,6 +38,8 @@ namespace Ui
 				{
 					result = (this.m_childrenContentSizeFitter = this.scrollView.content.GetComponent<ChildrenContentSizeFitter>());
 				}
+            content.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(scrollView.content.sizeDelta.x, 1600f);
+                
 				return result;
 			}
 		}
@@ -154,20 +159,22 @@ namespace Ui
 
 		public void InitStrings()
 		{
-            tabbarParent.gameObject.SetActive(false);
+            parentGemPacks.gameObject.SetActive(false);
+            buttonTabOffers.gameObject.SetActive(false);
+            buttonTabVault.gameObject.SetActive(false);
 			this.buttonTabVault.text.text = LM.Get("UI_SHOP_VAULT");
-			this.buttonTabOffers.text.text = LM.Get("UI_SHOP_OFFERS");
+			//this.buttonTabOffers.text.text = LM.Get("UI_SHOP_OFFERS");
 			this.textTitle0.text = LM.Get("UI_PACKS_SECTION_TITLE");
 			this.textTitle2.text = LM.Get("UI_SHOP_GEM_PACKS");
 			this.textTitleMines.text = LM.Get("UI_MINES");
 			this.riftPackTitle.text = LM.Get("UI_GATES_OFFERS_TITLE");
 			this.adventureOffersTitle.text = LM.Get("UI_ADVENTURE_OFFERS_TITLE");
 			this.socialRewardsSectionTitle.text = LM.Get("SOCIAL_REWARS_SECTION_TITLE");
-            this.shopLootPacks[0].textTitle.text = "FREE";//LM.Get("UI_SHOP_CHEST_0");
+			this.shopLootPacks[0].textTitle.text = LM.Get("UI_SHOP_CHEST_0");
 			this.shopLootPacks[1].textTitle.text = LM.Get("UI_SHOP_CHEST_1");
 			this.shopLootPacks[2].textTitle.text = LM.Get("UI_SHOP_CHEST_2");
-			this.shopCharmPacks[0].textTitle.text = LM.Get("CHARM_PACK");
-			this.shopCharmPacks[1].textTitle.text = LM.Get("CHARM_PACK_BIG");
+		//	this.shopCharmPacks[0].textTitle.text = LM.Get("CHARM_PACK");
+		//	this.shopCharmPacks[1].textTitle.text = LM.Get("CHARM_PACK_BIG");
 			int i = 0;
 			int num = this.panelBuyCredits.Length;
 			while (i < num)
@@ -182,14 +189,22 @@ namespace Ui
 			this.panelTrinket.buttonUpgradeAnim.textUp.text = LM.Get("SHOP_PACK_TRINKET");
 			this.panelMineToken.textTitle.text = LM.Get("MINE_TOKEN");
 			this.panelMineScrap.textTitle.text = LM.Get("MINE_SCRAP");
-			this.mineTokensLocked.text = LM.Get("UI_LOCKED");
-			this.flashOfferHeader.text = LM.Get("SHOP_FLASH_OFFER");
+            this.panelMineToken.gameObject.SetActive(true);
+           
+            //this.mineTokensLocked.text = LM.Get("UI_LOCKED");
+			/*this.flashOfferHeader.text = LM.Get("SHOP_FLASH_OFFER");
 			this.specialOffersSectionTitle.text = LM.Get("UI_SPECIAL_OFFERS");
 			this.halloweenHeader.text = LM.Get("UI_HALLOWEEN");
 			this.secondAnniversaryOfferTitle.text = "SECOND_ANNIVERSARY_SHOP_AD_TITLE".Loc();
-			this.secondAnniversaryOfferDesc.text = "SECOND_ANNIVERSARY_SHOP_AD_DESC".Loc();
-            
+			this.secondAnniversaryOfferDesc.text = "SECOND_ANNIVERSARY_SHOP_AD_DESC".Loc();*/
+            parentTrinketPack.gameObject.transform.localPosition = new Vector3(parentTrinketPack.localPosition.x, -500f, parentTrinketPack.transform.localPosition.z);
+            parentMines.gameObject.transform.localPosition = new Vector3(parentTrinketPack.localPosition.x, -900f, parentTrinketPack.transform.localPosition.z);
+            //var t = scrollView.content.GetComponent<RectTransform>();
+            //t.sizeDelta = new Vector2(scrollView.content.sizeDelta.x, 1600f);
+            content = scrollView.gameObject.transform.GetChild(0);
+            content.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(scrollView.content.sizeDelta.x, 1600f);
 		}
+           public Achievement achievement;
 
 		public void HideTabbar()
 		{
@@ -244,11 +259,15 @@ namespace Ui
 				widget.buttonOutlineImage.color = this.normalButtonBgColor;
 				widget.timerBackground.color = this.normalDurationBgColor;
 			}
+            content.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(scrollView.content.sizeDelta.x, 1600f);
+            
 		}
 
 		internal void ResetScrollPosition()
 		{
 			this.scrollView.content.SetAnchorPosY(0f);
+            content.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(scrollView.content.sizeDelta.x, 1600f);
+            
 			this.focusOnFlashOffers = false;
 		}
 
@@ -262,7 +281,7 @@ namespace Ui
 
 		public RectTransform tabbarParent;
 
-		public NotificationBadge offersNotificationBadge;
+		//public NotificationBadge offersNotificationBadge;
 
 		[Header("Vault")]
 		public MerchantItem[] shopLootPacks;
@@ -442,6 +461,7 @@ namespace Ui
 		public Sprite shopBackgroundFlipped;
 
 		public ScrollRect scrollView;
+        public Transform content;
 
 		public GameButton buttonTabVault;
 

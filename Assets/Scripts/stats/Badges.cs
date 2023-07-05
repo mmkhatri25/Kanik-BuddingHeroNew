@@ -29,7 +29,7 @@ namespace stats
 					num++;
 				}
 			}
-			return num;
+			return 0;
 		}
 
 		public static Badge GetBadgeWithId(BadgeId id)
@@ -60,13 +60,13 @@ namespace stats
 
 		public static readonly Badge[] All = new Badge[]
 		{
-			new BadgeCataclysmSurviver(),
-			new BadgeWintertideParticipant(),
-			new BadgeWintertadeTopOfTree(),
-			new BadgeWintertideCollector(),
-			new BadgeSnakeEater(),
-			new BadgeOneYearAnniversaryParticipant(),
-			new BadgeTwoYearsAnniversaryParticipant()
+			//new BadgeCataclysmSurviver(),
+			//new BadgeWintertideParticipant(),
+			//new BadgeWintertadeTopOfTree(),
+			//new BadgeWintertideCollector(),
+			//new BadgeSnakeEater(),
+			//new BadgeOneYearAnniversaryParticipant(),
+			//new BadgeTwoYearsAnniversaryParticipant()
 		};
 
 		private static List<Badge> cachedDisplayableBadgesList = new List<Badge>();
